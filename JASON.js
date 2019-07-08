@@ -62,21 +62,19 @@ function validP() {
 function checkArray(str) {
   for (let i = 0; i < str.length - 1; i++) {
     if (str[i] == ",") {
-      if (str[i + 1] == "]" || str[i] == "}") {
+      let j = i + 1;
+      while (j < str.length - 1 && str[j] == " ") {
+        j++;
+      }
+      if (str[j] == "]" || str[j] == "}") {
         return false;
-      } else if (
-        str[i + 1] == " " &&
-        (str[i + 2] == "]" || str[i + 2] == "}")
-      ) {
-        return false;
-      } else if (i == 0) {
-        return false;
-      } else if (i > 0 && (str[i - 1] == "[" || str[i - 1] == "{")) {
-        return false;
-      } else if (
-        str[i - 1] == " " &&
-        (str[i - 2] == "[" || str[i - 2] == "{")
-      ) {
+      }
+    } else if (str[i] == "[" || str[i] == "{") {
+      j = i + 1;
+      while (j < str.length - 1 && str[j] == " ") {
+        j++;
+      }
+      if (str[j] == ",") {
         return false;
       }
     }
@@ -87,15 +85,19 @@ function checkArray(str) {
 function checkObj(str) {
   for (let i = 0; i < str.length - 1; i++) {
     if (str[i] == ":") {
-      if (str[i + 1] == "}") {
+      let j = i + 1;
+      while (j < str.length - 1 && str[j] == " ") {
+        j++;
+      }
+      if (str[j] == "}") {
         return false;
-      } else if (str[i + 1] == " " && str[i + 2] == "}") {
-        return false;
-      } else if (i == 0) {
-        return false;
-      } else if (i > 0 && str[i - 1] == "{") {
-        return false;
-      } else if (str[i - 1] == " " && str[i - 2] == "{") {
+      }
+    } else if (str[i] == "{") {
+      j = i + 1;
+      while (j < str.length - 1 && str[j] == " ") {
+        j++;
+      }
+      if (str[j] == ":") {
         return false;
       }
     }
